@@ -1,0 +1,15 @@
+{
+  "name": "fundamentos-nodeJs-rocketseat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/LaisRibeiro/fundamentos-nodeJs-rocketseat.git",
+  "author": "LaisRibeiro <riibeirolais@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
