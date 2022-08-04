@@ -110,6 +110,51 @@ app.post("/withdraw/:cpf", verifyIfExistAccountCPF, (request, response) => {
     return response.status(201).send();
 })
 
+app.get("/statement/date/:cpf", verifyIfExistAccountCPF, (request, response) => {
+    const { customer } = request;
+    const { date } = request.query;
+
+    // Desta forma ele fará a busca independente da hora da operação
+    const dateFormat = new Date(date + " 00:00");
+
+    const statement = customer.statement.filter((statement) => statement.created_at.toDateString() === new Date(dateFormat).toDateString())
+   
+
+    return response.json(statement);
+})
+
+app.put("/account/:cpf", verifyIfExistAccountCPF, (request, response) => {
+    const { customer } = request;
+    const { name } = request.body;
+
+    customer.name = name;
+
+    return response.status(201).send();
+})
+
+app.get("/account/:cpf", verifyIfExistAccountCPF, (request, response) => {
+    const { customer } = request;
+
+    return response.json(customer);
+})
+
+app.delete("/account/:cpf", verifyIfExistAccountCPF, (request, response) => {
+    const { customer } = request;
+
+    customers.splice(customer, 1);
+
+    return response.status(200).json(customer);
+})
+
+app.get("/balance/:cpf", verifyIfExistAccountCPF, (request, response) => {
+    const { customer } = request;
+
+    const balance = getBalance(customer.statement);
+
+    return response.json(balance);
+})
+
+
 
 //localhost:3333
 app.listen(3333);
